@@ -17,7 +17,7 @@ def checkIfServiceIsRunning_Linux(testConfig):
     out,error = p.communicate()
     
     
-    assert re.search("is running",output) ,"\nName :"+testConfig["service"]+\
+    assert re.search("is running",out) ,"\nName :"+testConfig["service"]+\
                         "\nExpected service to be running: "+testConfig["service"]+\
                         "\n Test failed."
 
