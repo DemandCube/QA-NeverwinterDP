@@ -17,6 +17,7 @@ Prereqs
 git clone git@github.com:DemandCube/developer-setup.git
 cd developer-setup
 ./setup.sh
+sudo pip install nose
 ```
 
 Running
