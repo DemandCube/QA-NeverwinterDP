@@ -22,5 +22,6 @@ Running
 ```
 cd ./installation_tests
 mv -f ./test_configs/[config you wish to use].py ./config.py
-nosetests -s
+#Need to run as sudo if you are checking running services
+sudo nosetests -s
 ```
