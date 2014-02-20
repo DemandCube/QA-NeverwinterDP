@@ -12,7 +12,7 @@ def checkIfServiceIsRunning_Linux(testConfig):
     assert "name" in testConfig
     assert "service" in testConfig
     
-    command = "service --status-all | grep "+testConfig["service"] 
+    command = "sudo service --status-all | grep "+testConfig["service"] 
     p = subprocess.Popen(command.split(" "), stdout=subprocess.PIPE,stderr=subprocess.PIPE)
     out,error = p.communicate()
     
