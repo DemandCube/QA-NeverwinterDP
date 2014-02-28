@@ -6,7 +6,9 @@ Copywrite 2013 Steve Morin <steve@stevemorin.com>
 
 Tests to ensure machines are set up correctly
 ====
-Requires nosetests.  Uses Python to check binaries, file existence, and package versions
+Requires nosetests. (https://nose.readthedocs.org/en/latest/)
+
+Uses nose/Python to check binaries, file existence, and package versions
 
 
 Prereqs
@@ -15,6 +17,7 @@ Prereqs
 git clone git@github.com:DemandCube/developer-setup.git
 cd developer-setup
 ./setup.sh
+sudo pip install nose
 ```
 
 Running
