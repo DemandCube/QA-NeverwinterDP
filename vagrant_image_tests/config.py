@@ -14,10 +14,6 @@ check_config = [
             {
                 "name":"pip",
                 "binary":"pip"
-            },
-             {
-                "name":"ph",
-                "binary":"ph"
             }
         ],
         "prerequisites":[
