@@ -27,6 +27,6 @@ $ ./setup.sh
 Running
 ===
 ```
-cd ./vagrant_image_tests
+$ cd ./vagrant_image_tests
 $ nosetests
 ```
