@@ -4,7 +4,7 @@ DemandCube Developer Setup
 
 Copywrite 2013 Steve Morin <steve@stevemorin.com>
 
-Tests to ensure machines are set up correctly
+Tests to ensure vagrant images are set up correctly
 ====
 Requires nosetests. (https://nose.readthedocs.org/en/latest/)
 
@@ -28,5 +28,5 @@ Running
 ===
 ```
 cd ./vagrant_image_tests
-$nosetests
+$ nosetests
 ```
