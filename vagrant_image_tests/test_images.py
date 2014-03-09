@@ -22,8 +22,7 @@ def test_image_installation():
                 for packageTestConfig in testConfig["packages"]:
                     if "binary" in packageTestConfig:
                         assert "name" in packageTestConfig
-                        vagrant_ssh_command = subprocess.Popen(["vagrant", "ssh", "-c", "which" + " " + packageTestConfig["binary"]], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                        res=vagrant_ssh_command.communicate()
+                        vagrant_ssh_command = subprocess.call(["vagrant", "ssh", "-c", "which" + " " + packageTestConfig["binary"]])
                         assert_success(vagrant_ssh_command)
 
             subprocess.call(["vagrant", "halt"])
@@ -38,4 +37,4 @@ def test_image_installation():
 
 
 def assert_success(result):
-    assert str(result.returncode) == str(0) or str(result.returncode) or result.returncode or not result.returncode == "", "Return Code: >>>>> %s" % result.returncode + ">>>>>Test Failed!!! \n ERROR: >>>>> %s" % result.stderr.readlines()
+    assert str(result) == str(0), "Return Code: >>>>> %s" % result + ">>>>>Test Failed!!! \n ERROR: >>>>> %s" % str(result)
