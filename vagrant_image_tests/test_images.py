@@ -8,6 +8,7 @@ __author__ = 'hikmat'
 asserts against result code passed as parameter
 and results to success if return code is 0 and
 otherwise test is marked as failed with return code non-zero
+
 """
 
 def assert_success(return_code, v_cmd):
