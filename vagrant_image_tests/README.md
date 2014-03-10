@@ -26,6 +26,7 @@ $ ./setup.sh
 
 Running
 ===
+Edit config.py file to set the name and URL/path of the vagrant box you want test and do
 ```
 $ cd ./vagrant_image_tests
 $ nosetests
