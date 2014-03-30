@@ -5,6 +5,18 @@ from os.path import sep as pathSeparator
 from distutils.version import LooseVersion, StrictVersion
 
 
+
+def checkIfPythonModuleIsInstalled(testConfig):
+    """
+    Checks to see if python module can be loaded successfully
+    """
+    try:
+        exec("import "+testConfig["pyModule"])
+        assert True
+    except Exception as e:
+        assert False, testConfig["name"]+": "+testConfig["pyModule"]+" could not successfully be loaded in Python."
+
+
 def checkIfServiceIsRunning_Linux(testConfig):
     """
     Greps to see if service is running.  Asserts true if "running" is found, else it fails
