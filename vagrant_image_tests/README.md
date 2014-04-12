@@ -4,8 +4,10 @@ QA-NeverwinterDP
 
 Copywrite 2013 Steve Morin <steve@stevemorin.com>
 
+vagrant_image_tests
+===================
 Tests to ensure vagrant images are set up correctly
-====
+
 Requires nosetests. (https://nose.readthedocs.org/en/latest/)
 
 Uses nose/python to check binaries, file existence, and package versions
