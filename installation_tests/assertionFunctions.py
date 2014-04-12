@@ -1,6 +1,6 @@
 import config,re,subprocess
 from distutils.version import StrictVersion
-from os.path import isfile,join
+from os.path import isfile,join,exists
 from os.path import sep as pathSeparator
 from distutils.version import LooseVersion, StrictVersion
 
