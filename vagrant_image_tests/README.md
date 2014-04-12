@@ -1,4 +1,4 @@
-DemandCube Developer Setup
+QA-NeverwinterDP
 ====
 - A [NeverwinterDP](https://github.com/DemandCube/NeverwinterDP) and [DemandCube](https://github.com/DemandCube) Project
 
@@ -8,7 +8,7 @@ Tests to ensure vagrant images are set up correctly
 ====
 Requires nosetests. (https://nose.readthedocs.org/en/latest/)
 
-Uses nose/Python to check binaries, file existence, and package versions
+Uses nose/python to check binaries, file existence, and package versions
 
 
 Prerequisites
