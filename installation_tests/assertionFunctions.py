@@ -81,8 +81,14 @@ def checkIfFileExists(testConfig):
     """
     assert "name" in testConfig
     assert "file" in testConfig
-    assert isfile(testConfig["file"]), "Failure for package "+testConfig["name"]+"\n File: "\
-                                        +testConfig["file"]+" does not exist"
+    if type(testConfig["file"]) != list:
+        files = [testConfig["file"]]
+    else:
+        files = testConfig["file"]
+    #Loop through the list removing existing files
+    #Test passes if at the end of the day the list is empty
+    files[:] = [file for file in files if not isfile(file)]
+    assert len(files)==0, "The following files do not exists. " + str(files) +"."
 
 def checkIfMinimumVersionIsMet(testConfig):
     """
