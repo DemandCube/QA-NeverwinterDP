@@ -1,6 +1,6 @@
 import config,re,subprocess
 from distutils.version import StrictVersion
-from os.path import isfile,join,exists
+from os.path import isfile,join
 from os.path import sep as pathSeparator
 from distutils.version import LooseVersion, StrictVersion
 
@@ -87,7 +87,7 @@ def checkIfFileExists(testConfig):
         files = testConfig["file"]
     #Loop through the list removing existing files
     #Test passes if at the end of the day the list is empty
-    files[:] = [file for file in files if not exists(file)]
+    files[:] = [file for file in files if not isfile(file)]
     assert len(files)==0, "The following files do not exists. " + str(files) +"."
 
 def checkIfMinimumVersionIsMet(testConfig):
