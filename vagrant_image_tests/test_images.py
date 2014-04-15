@@ -1,3 +1,5 @@
+import os
+from os.path import expanduser
 import subprocess
 from installation_tests import assertionFunctions
 from vagrant_image_tests import config
@@ -20,6 +22,7 @@ def assert_success(return_code, v_cmd):
 Tests following vagrant commands against vagrant image being tested.
 Commands being tested are:
 1. vagrant box add box_name box_url
+2. mkdir $HOME/test_project_dir && cd test_project_dir
 2. vagrant init box_name
 3. vagrant up
 4. vagrant ssh, vagrant ssh and execute commands, vagrant ssh and verify installed packages
@@ -45,6 +48,14 @@ def test_image_installation():
             # assert that command executed successfully
             assert_success(v_box.returncode, "vagrant box add")
 
+            # create a directory for vagrant project home
+            v_dir = expanduser("~")+"/test_project_dir"
+            if not os.path.exists(v_dir):
+                os.makedirs(v_dir)
+                os.chdir(v_dir)
+            else:
+                exit(">>>>>>> " + v_dir + " already exists.Please remove it before running")
+
             # start command (vagrant init) execution process, then wait
             v_init = subprocess.Popen(["vagrant", "init", testConfig["box_name"]])
             # now wait for command execution completion
@@ -59,13 +70,36 @@ def test_image_installation():
             # assert that command executed successfully
             assert_success(v_up.returncode, "vagrant up")
 
-            # start command (vagrant ssh ) execution process, then wait
-            # creates file inside /vagrant directory of installed box to verify that box allows file creation
-            v_ssh = subprocess.Popen(["vagrant", "ssh", "-c", "touch /vagrant/Testfile.txt"])
+            # verify that vagrant user has sudo access
+            # First switch to root user and then execute the command passed as -s option
+            v_up = subprocess.Popen(["vagrant", "ssh", "-c", "sudo -s exit"])
+            # now wait for command execution completion
+            v_up.communicate()
+            # assert that command executed successfully
+            assert_success(v_up.returncode, "vagrant ssh -c sudo -s exit")
+
+            # creates a file inside /vagrant directory of installed box to verify that box allows file creation
+            v_ssh = subprocess.Popen(["vagrant", "ssh", "-c", "echo Hello from vagrant > /vagrant/Testfile.txt"])
             # now wait for command execution completion
             v_ssh.communicate()
             # assert that command executed successfully
             assert_success(v_ssh.returncode, "vagrant ssh")
+
+            # verify that file created in shared folder by guest system is accessible in host system
+            guest_file = subprocess.Popen(["cat", v_dir + "/Testfile.txt"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            guest_file_content, guest_file_err = guest_file.communicate()
+            assert str(guest_file_content.strip()) == str("Hello from vagrant".strip()), "Error while accessing shared file"
+
+            # create a file in host system
+            v_local = subprocess.Popen(["echo Hello from host >" + v_dir + "/Testfile1.txt"], shell=True)
+            v_local.communicate()
+            assert_success(v_local.returncode, "Testfile1.txt")
+
+            # verify that file created in shared folder by host system is accessible in guest system
+            host_file = subprocess.Popen(["vagrant", "ssh", "-c", "cat /vagrant/Testfile1.txt"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            host_file_content, host_file_err = host_file.communicate()
+            assert str(host_file_content.strip()) == str("Hello from host".strip()), "Error while accessing host file"
+            
 
             # test whether the packages specified in packages section config file
             # are installed in vagrant box or not
@@ -102,8 +136,5 @@ def test_image_installation():
             assert_success(v_remove.returncode, "vagrant box remove")
 
             # clean up
-            subprocess.call(["rm", "-rf", ".vagrant"])
-            subprocess.call(["rm", "Testfile.txt"])
-            subprocess.call(["rm", "Vagrantfile"])
-
+            subprocess.call(["rm", "-rf", v_dir])
 
