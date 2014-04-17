@@ -1,4 +1,4 @@
 config = {
-        "name":"epel",
+        "name":"hdp",
         "file":"/etc/yum.repos.d/hdp.repo",
     }
