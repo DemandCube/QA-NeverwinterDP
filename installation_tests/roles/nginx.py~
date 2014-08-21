@@ -1,4 +1,0 @@
-config = {
-        "name":"nginx",
-        "service":"mysql",
-    }

@@ -1,4 +1,0 @@
-config = {
-        "name":"mysql-server",
-        "binary":"mysql",
-    }

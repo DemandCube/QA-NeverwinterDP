@@ -1,4 +1,0 @@
-config = {
-        "name":"play",
-        "binary":"activator",
-    }

@@ -1,4 +1,0 @@
-config =  {
-        "name":"git-daemon",
-        "binary":"git daemon",
-    }
