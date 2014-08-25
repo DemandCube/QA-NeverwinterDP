@@ -1,4 +1,4 @@
 config =  {
         "name":"git-daemon",
-        "service":"git daemon",
+        "file":"/usr/libexec/git-core/git-daemon",
     }
